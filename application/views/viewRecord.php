@@ -1,6 +1,7 @@
 <body>
     <div class="container p-5">
 
+
         <div class="row">
             <div class="col col-3">
                 <a href="/" class="btn btn-dark"><i class="bi bi-caret-left"></i></a>
@@ -19,20 +20,23 @@
             <div class="col">
                 <hr />
                 <?php foreach ($records as $record) {   ?>
-                    <form action="">
+                    <form action="<?php echo base_url(('update/' . $record->id)); ?>" method="POST">
                         <div class="form-group">
                             <label class="lead">Enter Full Name</label>
-                            <input type="text" class="form-control" value="<?php echo $record->name ?>" />
+                            <input type="text" class="form-control" value="<?php echo $record->name ?>" name="name" />
+                            <small class="text-danger"><?php echo form_error('name') ?></small>
                         </div>
 
                         <div class="form-group">
                             <label class="lead">Enter Phone Number</label>
-                            <input type="text" class="form-control" value="<?php echo $record->number ?> " />
+                            <input type="text" class="form-control" value="<?php echo $record->number ?> " name="number" />
+                            <small class="text-danger"><?php echo form_error('number') ?></small>
                         </div>
 
                         <div class="form-group">
                             <label class="lead">Enter Email</label>
-                            <input type="email" class="form-control" value="<?php echo $record->email ?>" />
+                            <input type="email" class="form-control" value="<?php echo $record->email ?>" name="email" />
+                            <small class="text-danger"><?php echo form_error('email') ?></small>
                         </div>
 
                         <div class="form-group">
@@ -61,11 +65,15 @@
                                 <option value="3">Top Pamplemousse</option>
                                 <option value="3">Top Tropical</option>
                             </select>
+                            <small class="text-danger"><?php echo form_error('product') ?></small>
+
                         </div>
 
                         <div class="form-group">
                             <label class="lead">Enter Price</label>
-                            <input type="email" class="form-control" value="<?php echo $record->price ?>" />
+                            <input type="text" class="form-control" value="<?php echo $record->price ?>" name="price" />
+                            <small class="text-danger"><?php echo form_error('price') ?></small>
+
                         </div>
 
                         <div class=" form-group">
@@ -118,6 +126,14 @@
                         <?php } ?>
                     </div>
                 </div>
+                <br />
+                <?php if ($this->session->flashdata('edit')) : ?>
+                    <div class="col-10 alert alert-warning alert-dismissible fade show" role="alert">
+                        Record has been updated successfully
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php endif ?>
             </div>
         </div>
+    </div>
 </body>

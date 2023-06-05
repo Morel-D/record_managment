@@ -25,4 +25,9 @@ class ProductModel extends CI_Model
         $query = $this->db->get_where('records', ['id' => $id]);
         return $query->result();
     }
+
+    public function updaterecords($id, $data)
+    {
+        return $this->db->update('records', $data, ['id' => $id]);
+    }
 }

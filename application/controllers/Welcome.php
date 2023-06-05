@@ -30,12 +30,15 @@ class Welcome extends CI_Controller
 		$this->load->view('template/footer');
 	}
 
+
 	public function create()
 	{
 		$this->load->view('template/header');
 		$this->load->view('addProduct');
 		$this->load->view('template/footer');
 	}
+
+
 
 
 	public function store()
@@ -70,6 +73,8 @@ class Welcome extends CI_Controller
 	}
 
 
+
+
 	public function delete($id)
 	{
 		$this->load->model('ProductModel');
@@ -85,5 +90,53 @@ class Welcome extends CI_Controller
 		$data['records'] = $this->ProductModel->show($id);
 		$this->load->view('viewRecord', $data);
 		$this->load->view('template/footer');
+	}
+
+	public function update($id)
+	{
+		$this->form_validation->set_rules('name', 'Name', 'required');
+		$this->form_validation->set_rules('number', 'Phone Number', 'required');
+		$this->form_validation->set_rules('email', 'Email', 'required');
+		$this->form_validation->set_rules('product', 'The product', 'required');
+		$this->form_validation->set_rules('price', 'Price', 'required');
+
+		if ($this->form_validation->run()) {
+			$data = [
+				'name' => $this->input->post('name'),
+				'number' => $this->input->post('number'),
+				'email' => $this->input->post('email'),
+				'product' => $this->input->post('product'),
+				'price' => $this->input->post('price'),
+			];
+			$this->load->model('ProductModel');
+			$this->ProductModel->updaterecords($id, $data);
+			$this->session->set_flashdata('edit', 'Record has been updated successfully');
+			redirect(base_url('show/' . $id));
+		} else {
+			$this->show($id);
+		}
+	}
+
+
+	public function image()
+	{
+
+
+		$this->load->view('template/header');
+		$this->load->view('upload');
+		$this->load->view('template/footer');
+	}
+
+	public function upload_file()
+	{
+		$config['allowed_types'] = 'jpg|png|pdf';
+		$config['upload_path'] = './uploads/';
+		$this->load->library('upload', $config);
+
+		if ($this->upload->do_upload('image')) {
+			print_r($this->upload->data());
+		} else {
+			print_r($this->upload->display_errors());
+		}
 	}
 }

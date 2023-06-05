@@ -57,5 +57,8 @@ $route['add'] = 'welcome/create';
 $route['store'] = "welcome/store";
 $route['delete/(:any)'] = "welcome/delete/$1";
 $route['show/(:any)'] = "welcome/show/$1";
+$route['update/(:any)'] = "welcome/update/$1";
 
+$route['image'] = "welcome/image";
+$route['upload'] = "welcome/upload_file";
 // Products ...........
