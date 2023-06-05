@@ -49,12 +49,12 @@ $num = 1;
 
                     ?>
 
-                    <tr class="text-left">
+                    <tr>
                         <td><?php echo $num++ ?></td>
                         <td><?php echo $record->uid ?></td>
                         <td><?php echo $record->name ?></td>
                         <td><?php echo $record->email ?></td>
-                        <td class="text-end"><?php echo $record->number ?></td>
+                        <td><?php echo $record->number ?></td>
                         <td><?php
                             switch ($record->product) {
                                 case $record->product == 1:
