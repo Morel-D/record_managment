@@ -7,12 +7,14 @@ $num = 1;
     <div class="container p-5">
         <div class="row">
             <?php if ($this->session->flashdata('status')) : ?>
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <div class="col-3 alert alert-success alert-dismissible fade show" role="alert">
                     Record has been added
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             <?php elseif ($this->session->flashdata('delete')) : ?>
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <div class="col-3 alert alert-danger alert-dismissible fade show" role="alert">
                     Record has been deleted
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             <?php endif ?>
 
@@ -26,7 +28,7 @@ $num = 1;
         <hr />
         <br />
 
-        <table class="table table-hover">
+        <table id="productTable" class="table table-hover">
             <thead class="thead-dark">
                 <tr class="">
                     <th scope="col">#</th>

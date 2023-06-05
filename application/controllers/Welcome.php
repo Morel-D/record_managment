@@ -35,19 +35,16 @@ class Welcome extends CI_Controller
 		$this->load->view('template/header');
 		$this->load->view('addProduct');
 		$this->load->view('template/footer');
-
-		if ($_SERVER['REQUEST_METHOD']) {
-		}
 	}
 
 
 	public function store()
 	{
-		$this->form_validation->set_rules('name', 'Enter Full Name', 'required');
-		$this->form_validation->set_rules('number', 'Enter Phone Number', 'required');
-		$this->form_validation->set_rules('email', 'Enter Email', 'required');
-		$this->form_validation->set_rules('product', 'Select the product', 'required');
-		$this->form_validation->set_rules('price', 'Enter Price', 'required');
+		$this->form_validation->set_rules('name', 'Name', 'required');
+		$this->form_validation->set_rules('number', 'Phone Number', 'required');
+		$this->form_validation->set_rules('email', 'Email', 'required');
+		$this->form_validation->set_rules('product', 'The product', 'required');
+		$this->form_validation->set_rules('price', 'Price', 'required');
 
 
 		$letters = "RCD";
@@ -62,8 +59,6 @@ class Welcome extends CI_Controller
 				'product' => $this->input->post('product'),
 				'price' => $this->input->post('price')
 			];
-
-
 
 			$this->load->model('ProductModel');
 			$this->ProductModel->insertRecords($data);

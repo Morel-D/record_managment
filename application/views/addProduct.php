@@ -5,11 +5,11 @@
             <div class="col col-8">
                 <div class="p-5 col-11">
                     <div class="row text-center">
-                        <div class="col">
+                        <div class="col col-4  d-flex justify-content-start">
                             <a href="/" class="btn btn-dark"><i class="bi bi-caret-left"></i></a>
                         </div>
-                        <div class="col-10">
-                            <h3 class="text-end">Add Records</h3>
+                        <div class="col-8 d-flex justify-content-start">
+                            <h3 class="">Add Records</h3>
                         </div>
                     </div>
                     <br />
@@ -57,6 +57,13 @@
                                 Add Record
                             </button>
                         </div>
+
+                        <?php if (isset($error)) {  ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <?php echo $error ?>
+                            </div>
+                        <?php } ?>
+
                     </form>
                 </div>
             </div>
