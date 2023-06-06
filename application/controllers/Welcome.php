@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+require_once APPPATH . 'libraries\class.upload.php';
 
 class Welcome extends CI_Controller
 {
@@ -129,14 +130,20 @@ class Welcome extends CI_Controller
 
 	public function upload_file()
 	{
-		$config['allowed_types'] = 'jpg|png|pdf';
-		$config['upload_path'] = './uploads/';
-		$this->load->library('upload', $config);
+		$handle = new \Verot\Upload\Upload($_FILES['image']);
 
-		if ($this->upload->do_upload('image')) {
-			print_r($this->upload->data());
-		} else {
-			print_r($this->upload->display_errors());
+		if ($handle->uploaded) {
+			$handle->file_new_name_body   = 'image_resized';
+			$handle->image_resize         = true;
+			$handle->image_x              = 100;
+			$handle->image_ratio_y        = true;
+			$handle->process('./uploads/');
+			if ($handle->processed) {
+				header('Content-Type: ' . $handle->file_src_mime);
+				echo $handle->process();
+			} else {
+				echo 'error : ' . $handle->error;
+			}
 		}
 	}
 }
