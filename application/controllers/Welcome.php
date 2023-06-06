@@ -133,31 +133,32 @@ class Welcome extends CI_Controller
 		if ($this->form_validation->run()) {
 
 
-			if ($handle->uploaded) {
-				$handle->file_new_name_body   = 'image_resized';
-				$handle->image_resize         = true;
-				$handle->image_x              = 100;
-				$handle->image_ratio_y        = true;
-				$handle->process('./uploads/');
-				if ($handle->processed) {
-					header('Content-Type: ' . $handle->file_new_name_body);
-					// Right HIRER
-					$data = [
-						'name' => $this->input->post('name'),
-						'number' => $this->input->post('number'),
-						'email' => $this->input->post('email'),
-						'product' => $this->input->post('product'),
-						'price' => $this->input->post('price'),
-						'image' => $handle->file_dst_name,
-					];
-					$this->load->model('ProductModel');
-					$this->ProductModel->updaterecords($id, $data);
-					$this->session->set_flashdata('edit', 'Record has been updated successfully');
-					redirect(base_url('show/' . $id));
-					// END HERE
+			// if ($handle->uploaded) {
+			$handle->allowed = array('application/pdf', 'application/msword', 'image/*');
+			$handle->file_new_name_body   = 'image_resized';
+			$handle->image_resize         = true;
+			$handle->image_x              = 100;
+			$handle->image_ratio_y        = true;
+			$handle->process('./uploads/');
+			// if ($handle->processed) {
+			header('Content-Type: ' . $handle->file_new_name_body);
+			// Right HIRER
+			$data = [
+				'name' => $this->input->post('name'),
+				'number' => $this->input->post('number'),
+				'email' => $this->input->post('email'),
+				'product' => $this->input->post('product'),
+				'price' => $this->input->post('price'),
+				'image' => $handle->file_dst_name,
+			];
+			$this->load->model('ProductModel');
+			$this->ProductModel->updaterecords($id, $data);
+			$this->session->set_flashdata('edit', 'Record has been updated successfully');
+			redirect(base_url('show/' . $id));
+			// END HERE
 
-				}
-			}
+			// }
+			// }
 		} else {
 			$this->show($id);
 		}

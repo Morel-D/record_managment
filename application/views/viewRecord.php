@@ -75,7 +75,7 @@ require_once APPPATH . 'libraries\class.upload.php';
 
                         <div class="form-group">
                             <label class="lead">Upload Image</label>
-                            <input type="file" class="form-control" name="image" value="<?php echo $record->image ?>" />
+                            <input type="file" class="form-control" value="<?php echo $record->image ?>" name="image" />
                             <!-- <small class="text-danger"><?php echo form_error('image') ?></small> -->
 
                         </div>
