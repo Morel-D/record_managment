@@ -44,30 +44,52 @@ class Welcome extends CI_Controller
 
 	public function store()
 	{
+
+		$handle = new \Verot\Upload\Upload($_FILES['image']);
+
 		$this->form_validation->set_rules('name', 'Name', 'required');
 		$this->form_validation->set_rules('number', 'Phone Number', 'required');
 		$this->form_validation->set_rules('email', 'Email', 'required');
 		$this->form_validation->set_rules('product', 'The product', 'required');
 		$this->form_validation->set_rules('price', 'Price', 'required');
+		// $this->form_validation->set_rules('image', 'Image', 'required');
+
 
 
 		$letters = "RCD";
-		$matricule = substr(uniqid(), 0, 5);
+		$matricule = substr(uniqid(), 0, 10);
 
 		if ($this->form_validation->run()) {
-			$data = [
-				'uid' => $letters . $matricule,
-				'name' => $this->input->post('name'),
-				'number' => $this->input->post('number'),
-				'email' => $this->input->post('email'),
-				'product' => $this->input->post('product'),
-				'price' => $this->input->post('price')
-			];
 
-			$this->load->model('ProductModel');
-			$this->ProductModel->insertRecords($data);
-			$this->session->set_flashdata('status', 'Record has been added');
-			redirect(base_url('/'));
+			if ($handle->uploaded) {
+				$handle->file_new_name_body   = 'image_resized';
+				$handle->image_resize         = true;
+				$handle->image_x              = 100;
+				$handle->image_ratio_y        = true;
+				$handle->process('./uploads/');
+				if ($handle->processed) {
+					header('Content-Type: ' . $handle->file_new_name_body);
+					// Right HIRER
+					$data = [
+						'uid' => $letters . $matricule,
+						'name' => $this->input->post('name'),
+						'number' => $this->input->post('number'),
+						'email' => $this->input->post('email'),
+						'product' => $this->input->post('product'),
+						'price' => $this->input->post('price'),
+						'image' => $handle->file_dst_name,
+					];
+
+					$this->load->model('ProductModel');
+					$this->ProductModel->insertRecords($data);
+					$this->session->set_flashdata('status', 'Record has been added');
+					redirect(base_url('/'));
+					// END HERE
+
+				} else {
+					echo 'error : ' . $handle->error;
+				}
+			}
 		} else {
 			$this->create();
 		}
@@ -93,57 +115,51 @@ class Welcome extends CI_Controller
 		$this->load->view('template/footer');
 	}
 
+
+
+
+
 	public function update($id)
 	{
+		$handle = new \Verot\Upload\Upload($_FILES['image']);
+
 		$this->form_validation->set_rules('name', 'Name', 'required');
 		$this->form_validation->set_rules('number', 'Phone Number', 'required');
 		$this->form_validation->set_rules('email', 'Email', 'required');
 		$this->form_validation->set_rules('product', 'The product', 'required');
 		$this->form_validation->set_rules('price', 'Price', 'required');
+		// $this->form_validation->set_rules('image', 'Image', 'required');
 
 		if ($this->form_validation->run()) {
-			$data = [
-				'name' => $this->input->post('name'),
-				'number' => $this->input->post('number'),
-				'email' => $this->input->post('email'),
-				'product' => $this->input->post('product'),
-				'price' => $this->input->post('price'),
-			];
-			$this->load->model('ProductModel');
-			$this->ProductModel->updaterecords($id, $data);
-			$this->session->set_flashdata('edit', 'Record has been updated successfully');
-			redirect(base_url('show/' . $id));
+
+
+			if ($handle->uploaded) {
+				$handle->file_new_name_body   = 'image_resized';
+				$handle->image_resize         = true;
+				$handle->image_x              = 100;
+				$handle->image_ratio_y        = true;
+				$handle->process('./uploads/');
+				if ($handle->processed) {
+					header('Content-Type: ' . $handle->file_new_name_body);
+					// Right HIRER
+					$data = [
+						'name' => $this->input->post('name'),
+						'number' => $this->input->post('number'),
+						'email' => $this->input->post('email'),
+						'product' => $this->input->post('product'),
+						'price' => $this->input->post('price'),
+						'image' => $handle->file_dst_name,
+					];
+					$this->load->model('ProductModel');
+					$this->ProductModel->updaterecords($id, $data);
+					$this->session->set_flashdata('edit', 'Record has been updated successfully');
+					redirect(base_url('show/' . $id));
+					// END HERE
+
+				}
+			}
 		} else {
 			$this->show($id);
-		}
-	}
-
-
-	public function image()
-	{
-
-
-		$this->load->view('template/header');
-		$this->load->view('upload');
-		$this->load->view('template/footer');
-	}
-
-	public function upload_file()
-	{
-		$handle = new \Verot\Upload\Upload($_FILES['image']);
-
-		if ($handle->uploaded) {
-			$handle->file_new_name_body   = 'image_resized';
-			$handle->image_resize         = true;
-			$handle->image_x              = 100;
-			$handle->image_ratio_y        = true;
-			$handle->process('./uploads/');
-			if ($handle->processed) {
-				header('Content-Type: ' . $handle->file_src_mime);
-				echo $handle->process();
-			} else {
-				echo 'error : ' . $handle->error;
-			}
 		}
 	}
 }

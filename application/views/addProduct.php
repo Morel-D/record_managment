@@ -15,7 +15,7 @@
                     <br />
                     <hr />
                     <br />
-                    <form action="<?php echo base_url("store") ?>" method="POST">
+                    <form action="<?php echo base_url("store") ?>" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label class="lead">Enter Full Name</label>
                             <input type="text" name="name" class="form-control">
@@ -44,6 +44,13 @@
                                 <option value="3">Top Tropical</option>
                             </select>
                             <small class="text-danger"><?php echo form_error('product') ?></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="lead">Upload Image</label>
+                            <input type="file" class="form-control" name="image" />
+                            <!-- <small class="text-danger"><?php echo form_error('image') ?></small> -->
+
                         </div>
 
                         <div class="form-group">
