@@ -13,20 +13,23 @@
 
                     <hr />
 
-                    <form action="">
+                    <form action="<?php echo base_url("user") ?>" method="POST">
                         <div class="form-group">
                             <label class="lead">Enter Email</label>
-                            <input type="email" class="form-control" />
+                            <input type="email" class="form-control" name="email" />
+                            <small class="text-danger"><?php echo form_error('email') ?></small>
                         </div>
 
                         <div class="form-group">
                             <label class="lead">Enter Phone number</label>
-                            <input type="text" class="form-control" />
+                            <input type="text" class="form-control" name="number" />
+                            <small class="text-danger"><?php echo form_error('number') ?></small>
                         </div>
 
                         <div class="form-group">
-                            <label class="lead">Enter your code</label>
-                            <input type="text" class="form-control" />
+                            <label class="lead">Enter your PIN-Code (4 Digits Code PIN)</label>
+                            <input type="text" class="form-control" name="pin" />
+                            <small class="text-danger"><?php echo form_error('pin') ?></small>
                         </div>
 
                         <div class="form-group text-center">
@@ -35,7 +38,7 @@
                             </button>
                         </div>
                     </form>
-                    <a href="" class="text-dark"><u>Already have an account ?</u></a>
+                    <a href="/login" class="text-dark"><u>Already have an account ?</u></a>
                 </div>
             </div>
         </div>
