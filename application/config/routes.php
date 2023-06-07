@@ -65,3 +65,4 @@ $route['upload'] = "welcome/upload_file";
 $route['login'] = "Authentication";
 $route['signup'] = "Authentication/register";
 $route['user'] = "Authentication/user";
+$route['auth'] = "Authentication/auth";
