@@ -17,7 +17,7 @@ require_once APPPATH . 'libraries\class.upload.php';
 
 
             <div class="col d-flex justify-content-end mb-3">
-                <button class="btn btn-warning mx-3"><i class="bi bi-printer-fill"></i></button>
+                <button class="btn btn-secondary mx-3"><i class="bi bi-printer-fill"></i></button>
                 <button class="btn btn-danger "><i class="bi bi-trash3-fill text-white"></i></button>
             </div>
         </div>
@@ -111,43 +111,58 @@ require_once APPPATH . 'libraries\class.upload.php';
                             <div class="row">
 
 
-                                <div class="col">
-                                    <?php
-                                    $img_path = base_url('uploads/' . $record->image);
-                                    ?>
-                                    <img src="<?php echo $img_path ?>" />
-                                </div>
 
-                                <div class="col col-6">
+                                <?php
+                                $img_path = base_url('uploads/' . $record->image);
 
-                                    <h4 class="">Info Details</h4>
-                                    <hr />
+                                $pathImage =   pathinfo($img_path, PATHINFO_EXTENSION);
 
-                                    <label><b>Product Name :</b>
-                                        <?php
-
-                                        switch ($record->product) {
-                                            case $record->product == 1:
-                                                echo "Top Grenadine";
-                                                break;
-                                            case $record->product == 2:
-                                                echo "Top Ananas";
-                                                break;
-                                            case $record->product == 3:
-                                                echo "Top Pamplemousse";
-                                                break;
-                                            case $record->product == 4:
-                                                echo "Top Tropical";
-                                                break;
-                                        }
-                                        ?>
+                                if ($pathImage == "jpg" || $pathImage == "png" || $pathImage == "jpeg") { ?>
+                                    <div class="col">
+                                        <img src="<?php echo $img_path ?>" />
+                                    </div>
 
 
-                                    </label><br />
-                                    <label><b>Price :</b> <?php echo $record->price ?> FCFA</label>
-                                    <br />
-                                    <label><b>Recipt Matricule :</b> <i><?php echo $record->uid ?></i></label>
-                                </div>
+
+                                    <div class="col col-6">
+
+                                        <h4 class="">Info Details</h4>
+                                        <hr />
+
+                                        <label><b>Product Name :</b>
+                                            <?php
+
+                                            switch ($record->product) {
+                                                case $record->product == 1:
+                                                    echo "Top Grenadine";
+                                                    break;
+                                                case $record->product == 2:
+                                                    echo "Top Ananas";
+                                                    break;
+                                                case $record->product == 3:
+                                                    echo "Top Pamplemousse";
+                                                    break;
+                                                case $record->product == 4:
+                                                    echo "Top Tropical";
+                                                    break;
+                                            }
+                                            ?>
+
+
+                                        </label><br />
+                                        <label><b>Price :</b> <?php echo $record->price ?> FCFA</label>
+                                        <br />
+                                        <label><b>Recipt Matricule :</b> <i><?php echo $record->uid ?></i></label>
+                                    </div>
+
+                                <?php  } else {  ?>
+
+                                    <label>
+
+                                    </label>
+
+                                <?php } ?>
+
 
                             </div>
 

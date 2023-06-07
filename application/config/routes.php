@@ -61,4 +61,6 @@ $route['update/(:any)'] = "welcome/update/$1";
 
 $route['image'] = "welcome/image";
 $route['upload'] = "welcome/upload_file";
-// Products ...........
+
+$route['login'] = "Authentication";
+$route['signup'] = "Authentication/register";

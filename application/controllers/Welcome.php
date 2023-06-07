@@ -20,6 +20,9 @@ class Welcome extends CI_Controller
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+
+
+	// The home page 
 	public function index()
 	{
 
@@ -40,7 +43,7 @@ class Welcome extends CI_Controller
 	}
 
 
-
+	// function to insert data into the database
 
 	public function store()
 	{
@@ -96,7 +99,7 @@ class Welcome extends CI_Controller
 	}
 
 
-
+	// Function to delete data from the database
 
 	public function delete($id)
 	{
@@ -116,8 +119,7 @@ class Welcome extends CI_Controller
 	}
 
 
-
-
+	// function to update data from the database
 
 	public function update($id)
 	{
