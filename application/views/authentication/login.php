@@ -14,15 +14,17 @@
 						<br />
 						<hr />
 						<br />
-						<form action="">
+						<form action="<?php echo base_url('auth') ?>" method="POST">
 							<div class="form-group">
 								<label class="lead">Enter Phone number</label>
-								<input type="text" class="form-control" />
+								<input type="text" class="form-control" name="number" />
+								<small class="text-danger"><?php echo form_error('number') ?></small>
 							</div>
 
 							<div class="form-group">
 								<label class="lead">Enter your code</label>
-								<input type="text" class="form-control" />
+								<input type="text" class="form-control" name="pin" />
+								<small class="text-danger"><?php echo form_error('pin') ?></small>
 							</div>
 
 							<div class="form-group text-center">
@@ -39,6 +41,31 @@
 								<a href="" class="text-dark"><u>Forgot your code PIN ?</u></a>
 							</div>
 						</div>
+						<br />
+						<br />
+
+						<?php if ($this->session->flashdata('success')) {  ?>
+							<div class="col alert alert-success alert-dismissible fade show" role="alert">
+								<i class="bi bi-check-lg"></i> LogIn Successfully
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							</div>
+						<?php } ?>
+
+						<?php if ($this->session->flashdata('error')) {  ?>
+							<div class="col alert alert-danger alert-dismissible fade show" role="alert">
+								<i class="bi bi-exclamation-circle-fill mx-3"></i> LogIn Failed
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							</div>
+						<?php } ?>
+
+
+
+						<?php if ($this->session->flashdata('empty')) {  ?>
+							<div class="col alert alert-danger alert-dismissible fade show" role="alert">
+								<i class="bi bi-exclamation-circle-fill mx-3"></i> Fill in the information provided
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							</div>
+						<?php } ?>
 					</div>
 				</div>
 			</div>
